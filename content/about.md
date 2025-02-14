@@ -1,36 +1,29 @@
 ---
 title: "About Me"
-date: "2025-02-08"
-author: "John Doe"
+date: "2025-02-14"
+author: "0xh4ty"
 ---
 
-# Welcome to My Blog
+## Welcome  
+I'm Suriya Prakash Nagarajan, aka **0xh4ty**. I'm a Linux enthusiast, Emacs user, hacker, and programmer. I created this blog to document my learning, share insights, and connect with others interested in Web3 security.  
 
-Hello! My name is **John Doe**, and I’m a passionate writer, technology enthusiast, and lifelong learner. I created this blog to document my journey, share insights, and connect with like-minded individuals.
+## My Background  
+I started my journey in security with Web2, spending two years learning penetration testing and bug bounty hunting. I worked through **Linux Basics for Hackers**, the **Junior Penetration Tester path on TryHackMe**, and **Hack The Box**, earning the **HTB CBBH (Certified Bug Bounty Hunter)** certification along the way. Now, I'm transitioning into Web3 security and smart contract auditing.  
 
-## My Background
+## Interests  
+I enjoy working in a **keyboard-driven workflow** and use Emacs for everything from coding to writing. Outside of security, I'm also learning Rust for recreational programming.  
 
-I have always been fascinated by technology and the impact it has on our daily lives. From a young age, I developed an interest in coding, problem-solving, and exploring new ideas. Over the years, I have honed my skills in various fields and continue to expand my knowledge every day.
+## Education  
+I hold a **Bachelor of Computer Applications (BCA)** and am currently pursuing a **Master of Computer Applications (MCA)**.  
 
-### What You’ll Find Here
+## Beyond Tech  
+I have a deep love for **pigeons** and find them just as fascinating as hacking.  
 
-This blog is a collection of my thoughts, research, and experiences. Here, you’ll find:
-- **In-depth articles** on topics I find interesting.
-- **Personal reflections** on lessons learned.
-- **Guides and tutorials** to help others navigate their own journeys.
+## Get in Touch  
+If you're on a similar path or just want to connect, feel free to reach out:  
 
-## Why I Started This Blog
+- **GitHub**: [github.com/0xh4ty](https://github.com/0xh4ty)  
+- **Twitter**: [twitter.com/0xh4ty](https://twitter.com/0xh4ty)  
 
-I believe that learning is a continuous process, and the best way to solidify knowledge is by sharing it with others. Writing helps me clarify my thoughts, and if my posts can help or inspire someone, that’s an added bonus!
-
-## Get in Touch
-
-I’d love to hear from you! Feel free to connect with me:
-- **GitHub**: [github.com/johndoe](https://github.com/johndoe)
-- **Twitter**: [twitter.com/johndoe](https://twitter.com/johndoe)
-
-Thank you for stopping by, and I hope you find something valuable here. Stay curious, and happy reading!
-
----
-
-*This is a sample About Me page for users creating their own blog using Xeniria. Feel free to customize it to reflect your personality and interests.*
+## Thank You  
+Thanks for visiting! I hope you find something useful here. Let’s keep learning and hacking for a better world!  
