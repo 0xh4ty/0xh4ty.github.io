@@ -44,8 +44,8 @@ Thanks to *@Sonic* from the **ethstaker** Discord, I was able to resolve these i
 
 If you're an aspiring smart contract developer or smart contract auditor, *Mastering Ethereum* is an essential read. However, given Ethereum’s rapid evolution, always check if certain concepts have changed or been deprecated.
 
-I personally recommend reading the first six chapters and the last five chapters while skipping the middle sections. Instead, complement those skipped chapters with resources from the [Solidity by Example](https://solidity-by-example.org/) website.
+I personally recommend reading the first six chapters and the last five chapters while skipping the middle sections. Instead, complement those skipped chapters with resources from the [Solidity documentation](https://https://docs.soliditylang.org/en/latest/).
 
-Now that I’ve completed the first six chapters, my next step is to dive into Solidity by Example. I'll share my learnings in the next blog post.
+Now that I’ve completed the first six chapters, my next step is to dive into Solidity documentation. I'll share my learnings in the next blog post.
 
 See you in the next one. Cheers!
