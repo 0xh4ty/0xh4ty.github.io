@@ -1,10 +1,10 @@
 ---
 title: License
-author: John Doe
+author: 0xh4ty
 date: 2025-02-08
 ---
 
-## Copyright © 2025 John Doe
+## Copyright © 2025 0xh4ty
 
 All content on this website, unless otherwise stated, is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License**.
 
