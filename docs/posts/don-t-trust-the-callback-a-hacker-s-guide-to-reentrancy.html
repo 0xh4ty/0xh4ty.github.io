@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Don’t Trust the Callback: A Hacker’s Guide to Reentrancy</title>
+    <link rel='stylesheet' href='https://unpkg.com/@picocss/pico@latest/css/pico.min.css'>
+    <link rel='stylesheet' href='../assets/styles.css'>
+</head>
+<body>
+<header class='container'>
+  <nav class='flex-nav'>
+    <!-- Left side: brand or home icon -->
+    <ul class='nav-left'>
+      <li><a href='../index.html'><i data-feather='home'></i></a></li>
+    </ul>
+
+    <!-- Right side: links -->
+    <ul class='nav-links' id='navLinks'>
+      <li><a href='../index.html'>Home</a></li>
+      <li><a href='../posts.html'>Posts</a></li>
+      <li><a href='../about.html'>About</a></li>
+      <li><a href='../license.html'>License</a></li>
+    </ul>
+
+    <!-- Hamburger Button (hidden on large screens) -->
+    <button
+      class='hamburger'
+      aria-label='Toggle Menu'
+      onclick='toggleMenu()'>
+      <i data-feather='menu'></i>
+    </button>
+  </nav>
+</header>
+<main class='container'>
+<h1>Don’t Trust the Callback: A Hacker’s Guide to Reentrancy</h1>
+                                         <p><strong>By 0xh4ty</strong> - 2025-05-25 - 3 min read</p>
+                                         <h2>Introduction</h2>
+<p>Reentrancy is not just an attack vector in smart contracts. It is a behavioral flaw that mirrors recursive logic but emerges from control being transferred to an external contract mid-execution. Unlike traditional software where locks, thread-local storage, and shared state protections exist, smart contracts must defend themselves explicitly.</p>
+<p>This post will break down the concept of reentrancy, dissect real attack patterns, and show how to exploit and prevent them. It will cover three types of reentrancy attacks: <strong>Single Function</strong>, <strong>Cross-Function</strong>, and <strong>Cross-Contract</strong>.</p>
+<h2>What Is Reentrancy?</h2>
+<p>At a high level, reentrancy is when a contract calls an external contract which then reenters back into the original contract <em>before</em> the original function completes and the internal state is properly updated. This leads to violations of contract assumptions, enabling exploits like draining funds, bypassing auth, or causing denial of service.</p>
+<p>It is not a loop. It is a state machine hijack.</p>
+<h2>Why It Happens in Smart Contracts</h2>
+<ul>
+<li>No implicit locking or thread-local state</li>
+<li>Mutable storage that isn’t updated until after external calls</li>
+<li>Developers violating Checks-Effects-Interactions</li>
+</ul>
+<h2>Types of Reentrancy Attacks</h2>
+<h3>1. Single Function Reentrancy</h3>
+<p>This is the simplest form. One function updates state <em>after</em> making an external call, which lets an attacker repeatedly reenter and exploit the stale state.</p>
+<p><strong>Real-World Example</strong>: <a href="https://www.coindesk.com/markets/2016/06/18/understanding-the-dao-attack/">The DAO Hack (2016)</a></p>
+<p><strong>Blog Used</strong>: <a href="https://blog.pessimistic.io/reentrancy-attacks-on-smart-contracts-distilled-7fed3b04f4b6">Pessimistic’s Breakdown</a></p>
+<h3>2. Cross-Function Reentrancy</h3>
+<p>This occurs when multiple functions share mutable state, and one function allows reentrancy into another before the state is properly locked or updated.</p>
+<p><strong>Observed Pattern</strong>:</p>
+<ul>
+<li>Shared state across functions</li>
+<li>A reentrant call triggers a second function that manipulates the same variables</li>
+</ul>
+<p><strong>Codebase Studied</strong>: <a href="https://github.com/uni-due-syssec/eth-reentrancy-attack-patterns/blob/master/cross-function.sol">Cross-function.sol</a></p>
+<h3>3. Cross-Contract Reentrancy</h3>
+<p>This is more complex. Contract A interacts with Contract B before updating its own state. Contract B is attacker-controlled and reenters A through a separate call or callback.</p>
+<p><strong>Attack Path</strong>:</p>
+<ul>
+<li>Contract A calls B (e.g., token swap or callback)</li>
+<li>B calls back into A before A finalizes state</li>
+</ul>
+<p><strong>Reference Code &amp; Blog</strong>:</p>
+<ul>
+<li><a href="https://github.com/InspexCo/cross-contract-reentrancy">Inspex GitHub Repo</a></li>
+<li><a href="https://inspexco.medium.com/cross-contract-reentrancy-attack-402d27a02a15">Inspex Blog</a></li>
+</ul>
+<h2>Fixing Reentrancy</h2>
+<h3>General Defenses</h3>
+<ul>
+<li>Use <strong>Checks-Effects-Interactions</strong>: update state before external calls.</li>
+<li>Add <strong>Reentrancy Guards</strong> (mutex-like pattern):</li>
+</ul>
+<pre><code class="language-solidity">bool private locked;
+modifier noReentrant() {
+    require(!locked, "Reentrant call");
+    locked = true;
+    _;
+    locked = false;
+}
+</code></pre>
+<h3>For Each Type:</h3>
+<ul>
+<li>
+<p><strong>Single Function</strong>: update internal state before external calls.</p>
+</li>
+<li>
+<p><strong>Cross-Function</strong>: use reentrancy guards on all relevant functions.</p>
+</li>
+<li>
+<p><strong>Cross-Contract</strong>:</p>
+<ul>
+<li>Don’t trust user-supplied contract addresses</li>
+<li>Whitelist approved contracts</li>
+<li>Avoid making external calls mid-function</li>
+</ul>
+</li>
+</ul>
+<h2>Final Thoughts</h2>
+<p>Reentrancy is not a vulnerability. It’s a capability. The exploit arises when developers leave state unprotected and make premature external calls. The key to avoiding it is understanding <strong>where control can be lost</strong>.</p>
+<p>By learning from real-world exploits and practicing on open-source codebases, you build an instinct for dangerous patterns. Avoid blind trust in callbacks. Always assume the worst and code defensively.</p>
+<p>This blog is my distilled learning from multiple sources, broken down and remixed into something any smart contract auditor can internalize and act on.</p>
+<p>Stay paranoid. Stay precise.</p>
+
+</main>
+<footer class='container' style='text-align: center;'>
+    <p>
+        <a href='https://github.com/0xh4ty'><i data-feather='github'></i></a>
+        &nbsp;|&nbsp;
+        <a href='https://x.com/0xh4ty'><i data-feather='twitter'></i></a>
+    </p>
+    <p class='footer-credit'>
+        © 2025 <a href='https://x.com/0xh4ty'>0xh4ty</a>. Powered by <a href='https://github.com/0xh4ty/xeniria'>Xeniria</a>.
+    </p>
+</footer>
+<script src='https://unpkg.com/feather-icons'></script>
+<script>feather.replace();</script>
+<script>
+  function toggleMenu() {
+    let nav = document.getElementById('navLinks');
+    nav.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
