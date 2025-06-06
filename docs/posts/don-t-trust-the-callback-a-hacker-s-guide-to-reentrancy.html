@@ -6,6 +6,11 @@
     <title>Don’t Trust the Callback: A Hacker’s Guide to Reentrancy</title>
     <link rel='stylesheet' href='https://unpkg.com/@picocss/pico@latest/css/pico.min.css'>
     <link rel='stylesheet' href='../assets/styles.css'>
+    <link rel='stylesheet' href='../assets/prism-custom-theme.css'>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css' />
+    <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'></script> <!-- FIRST -->
+    <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-solidity.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js'></script>
 </head>
 <body>
 <header class='container'>
@@ -78,7 +83,7 @@
 <li>Use <strong>Checks-Effects-Interactions</strong>: update state before external calls.</li>
 <li>Add <strong>Reentrancy Guards</strong> (mutex-like pattern):</li>
 </ul>
-<pre><code class="language-solidity">bool private locked;
+<pre class="line-numbers"><code class="language-solidity">bool private locked;
 modifier noReentrant() {
     require(!locked, "Reentrant call");
     locked = true;
