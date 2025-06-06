@@ -2,6 +2,7 @@
 title: "About Me"
 date: "2025-02-08"
 author: "0xh4ty"
+description: "I’m 0xh4ty, a Linux enthusiast, Emacs user, hacker, and programmer."
 ---
 
 ## Welcome

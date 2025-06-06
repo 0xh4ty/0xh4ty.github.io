@@ -4,8 +4,14 @@ title = "0xh4ty's Web3 Security Blog"  # Change this to your website's title
 description = "Documenting my journey through Web3 security and smart contract auditing."  # Short description of yourself
 author = "0xh4ty"  # Enter your name
 profile_picture = "assets/img/0xh4ty.jpg"  # Place your image in the "assets/img/" directory and update the reference here, or provide the URL of your Twitter profile picture
+base_url = "https://0xh4ty.github.io"  # The full URL where your site is hosted (used for sitemap.xml and SEO metadata). Example: "https://0xh4ty.github.io" or "https://myblog.com"
 
 # Navigation Links
 [links]
 github = "https://github.com/0xh4ty"  # Replace with your GitHub profile link (e.g., "https://github.com/yourusername")
 twitter = "https://x.com/0xh4ty"  # Replace with your Twitter profile link (e.g., "https://twitter.com/yourusername")
+
+# Analytics
+[analytics]
+plausible_domain = ""  # Optional: set your domain here to enable Plausible (example: "myblog.com")
+cloudflare_beacon_token = "9c1e0c4b473f4376a08b470a425d8160"  # Optional — if set, inserts Cloudflare Analytics
