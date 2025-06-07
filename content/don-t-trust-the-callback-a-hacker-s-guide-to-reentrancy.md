@@ -2,6 +2,7 @@
 title: "Don’t Trust the Callback: A Hacker’s Guide to Reentrancy"
 date: "2025-05-25"
 author: "0xh4ty"
+description: "Reentrancy is not just an attack vector in smart contracts. It is a behavioral flaw that mirrors recursive logic but emerges from control being transferred to an external contract mid-execution."
 ---
 
 ## Introduction

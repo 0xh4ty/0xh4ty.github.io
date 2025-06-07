@@ -2,6 +2,7 @@
 title: "My Experience Reading Mastering Ethereum"
 date: "2025-02-27"
 author: "0xh4ty"
+description: "For the past week, I have been deeply immersed in Mastering Ethereum by Andreas M. Antonopoulos and Gavin Wood. The experience has been nothing short of extraordinary."
 ---
 
 ## Introduction
