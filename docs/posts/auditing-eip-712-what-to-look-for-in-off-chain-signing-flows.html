@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='description' content='How to audit EIP-712 smart contracts for signature replay, forgery, and off-chain signing bugs. Covers common mistakes in EIP-712 and ERC20Permit implementations.'>
+    <meta name='generator' content='Xeniria — https://github.com/0xh4ty/xeniria'>
+    <title>Auditing EIP-712: What to Look For in Off-Chain Signing Flows</title>
+
+    <!-- Canonical URL -->
+    <link rel='canonical' href='https://0xh4ty.github.io/posts/auditing-eip-712-what-to-look-for-in-off-chain-signing-flows.html'>
+
+    <!-- Open Graph (OG) meta -->
+    <meta property='og:title' content='Auditing EIP-712: What to Look For in Off-Chain Signing Flows'>
+    <meta property='og:description' content='How to audit EIP-712 smart contracts for signature replay, forgery, and off-chain signing bugs. Covers common mistakes in EIP-712 and ERC20Permit implementations.'>
+    <meta property='og:type' content='article'>
+    <meta property='og:url' content='https://0xh4ty.github.io/posts/auditing-eip-712-what-to-look-for-in-off-chain-signing-flows.html'>
+    <meta property='og:image' content='https://0xh4ty.github.io/assets/img/og-default.png'>
+
+    <!-- Twitter meta -->
+    <meta name='twitter:card' content='summary_large_image'>
+    <meta name='twitter:title' content='Auditing EIP-712: What to Look For in Off-Chain Signing Flows'>
+    <meta name='twitter:description' content='How to audit EIP-712 smart contracts for signature replay, forgery, and off-chain signing bugs. Covers common mistakes in EIP-712 and ERC20Permit implementations.'>
+    <meta name='twitter:image' content='https://0xh4ty.github.io/assets/img/og-default.png'>
+
+    <link rel='stylesheet' href='https://unpkg.com/@picocss/pico@latest/css/pico.min.css'>
+    <link rel='stylesheet' href='../assets/styles.css'>
+    <link rel='stylesheet' href='../assets/prism-custom-theme.css'>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css' />
+    <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-solidity.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js'></script>
+    
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9c1e0c4b473f4376a08b470a425d8160"}'></script>
+</head>
+<body>
+<header class='container'>
+  <nav class='flex-nav'>
+    <!-- Left side: brand or home icon -->
+    <ul class='nav-left'>
+      <li><a href='../index.html'><i data-feather='home'></i></a></li>
+    </ul>
+
+    <!-- Right side: links -->
+    <ul class='nav-links' id='navLinks'>
+      <li><a href='../index.html'>Home</a></li>
+      <li><a href='../posts.html'>Posts</a></li>
+      <li><a href='../about.html'>About</a></li>
+      <li><a href='../license.html'>License</a></li>
+    </ul>
+
+    <!-- Hamburger Button (hidden on large screens) -->
+    <button
+      class='hamburger'
+      aria-label='Toggle Menu'
+      onclick='toggleMenu()'>
+      <i data-feather='menu'></i>
+    </button>
+  </nav>
+</header>
+<main class='container'>
+<h1>Auditing EIP-712: What to Look For in Off-Chain Signing Flows</h1>
+                                         <p><strong>By 0xh4ty</strong> - 2025-06-08 - 4 min read</p>
+                                         <h2>Introduction</h2>
+<p>EIP-712 is a standard designed to make off-chain signing of structured data both secure and user-friendly. It is used extensively in the Ethereum ecosystem, especially in DeFi protocols where actions such as token approvals are signed off-chain to save gas. A prominent example of this is the ERC20 <code>permit()</code> function introduced by EIP-2612, which allows token holders to approve transfers without sending an on-chain transaction.</p>
+<p>However, incorrect implementations of EIP-712 are a rich source of vulnerabilities. Improper handling of signed data can lead to serious bugs, including signature replay attacks and signature forgery. This post explores this bug class in depth.</p>
+<h2>The Basics of EIP-712</h2>
+<p>EIP-712 defines how to sign typed structured data in a way that prevents signature ambiguity. This makes signatures context-specific, reducing the risk of misuse across different domains or contracts.</p>
+<p>EIP-2612 extends ERC20 with <code>permit()</code>, <code>nonces()</code>, and <code>DOMAIN_SEPARATOR()</code> to enable gasless approvals. The permit flow relies on strict adherence to EIP-712 to prevent misuse.</p>
+<h2>Observed Patterns</h2>
+<ul>
+<li>Static or missing DOMAIN_SEPARATOR. Signature replay across contracts or chains.</li>
+<li>No nonce. Signature replay on same contract leading to funds drain.</li>
+<li>No deadline. Signature valid forever allowing delayed replay attacks.</li>
+<li>Wrong struct hashing (typeHash) because of wrong order leading to DoS.</li>
+<li>Using abi.encodePacked in place of abi.encode causing DoS.</li>
+<li>Skipping \x19\x01 prefix. Signature mismatch and DoS.</li>
+<li>Missing signer != address(0) check. Signature forgery via ecrecover returning address(0).</li>
+<li>Custom permit() instead of using OpenZeppelin ERC20Permit—often the root of these mistakes.</li>
+</ul>
+<h2>Vulnerable Code Patterns</h2>
+<h3>Static DOMAIN_SEPARATOR (missing chainId and address(this))</h3>
+<pre class="line-numbers"><code class="language-solidity">bytes32 public constant DOMAIN_SEPARATOR = keccak256(
+    abi.encode(
+        keccak256("EIP712Domain(string name,string version)"),
+        keccak256(bytes("TokenName")),
+        keccak256(bytes("1"))
+    )
+);
+</code></pre>
+<h3>No nonce in permit struct or no increment of nonces[owner]</h3>
+<pre class="line-numbers"><code class="language-solidity">bytes32 structHash = keccak256(
+    abi.encode(
+        PERMIT_TYPEHASH,
+        owner,
+        spender,
+        value,
+        deadline // missing nonce!
+    )
+);
+
+// Missing: _nonces[owner]++;
+</code></pre>
+<h3>No deadline check</h3>
+<pre class="line-numbers"><code class="language-solidity">// Missing: require(block.timestamp &lt;= deadline, "expired");
+</code></pre>
+<h3>Wrong struct hashing (typeHash)</h3>
+<pre class="line-numbers"><code class="language-solidity">bytes32 public constant PERMIT_TYPEHASH = keccak256(
+    "Permit(address owner,address spender,uint256 deadline,uint256 value)" // wrong order and missing nonce
+);
+</code></pre>
+<h3>Using abi.encodePacked instead of abi.encode</h3>
+<pre class="line-numbers"><code class="language-solidity">bytes32 structHash = keccak256(
+    abi.encodePacked(
+        PERMIT_TYPEHASH,
+        owner,
+        spender,
+        value,
+        nonce,
+        deadline
+    )
+);
+</code></pre>
+<h3>Skipping \x19\x01 prefix</h3>
+<pre class="line-numbers"><code class="language-solidity">bytes32 digest = keccak256(
+    abi.encodePacked(
+        DOMAIN_SEPARATOR,
+        structHash
+    )
+);
+</code></pre>
+<h3>Missing signer != address(0) check</h3>
+<pre class="line-numbers"><code class="language-solidity">address signer = ecrecover(digest, v, r, s);
+// Missing: require(signer != address(0), "invalid sig");
+require(signer == owner, "invalid sig");
+</code></pre>
+<h3>Rolling custom permit() instead of importing OpenZeppelin ERC20Permit</h3>
+<pre class="line-numbers"><code class="language-solidity">contract MyToken is ERC20, IERC20Permit {
+    // Manual DOMAIN_SEPARATOR, manual nonces, manual ecrecover — risky
+}
+</code></pre>
+<h2>Exploit Ideas</h2>
+<ul>
+<li>Replay a signature on a different contract if DOMAIN_SEPARATOR is static or missing chainId/address(this).</li>
+<li>Replay a signature multiple times on the same contract if nonce is missing or not incremented.</li>
+<li>Use a signature after its intended lifetime if deadline is missing or deadline check is not enforced.</li>
+<li>Craft a malicious signature with reordered or missing fields to exploit wrong struct hashing.</li>
+<li>Trigger signature mismatch DoS by skipping the \x19\x01 prefix.</li>
+<li>Forge a signature by passing random (v, r, s) that makes ecrecover return address(0), combined with owner == address(0) in permit.</li>
+<li>Target poorly written custom permit() implementations that deviate from OpenZeppelin ERC20Permit standard.</li>
+</ul>
+<h2>How to Fix</h2>
+<ul>
+<li>Use OpenZeppelin ERC20Permit implementation and avoid writing custom permit() functions.</li>
+<li>If writing custom permit(), strictly follow EIP-712 and EIP-2612 specifications.</li>
+<li>DOMAIN_SEPARATOR must include chainId and address(this), and must be dynamic if chainId can change.</li>
+<li>Always include nonce in the struct hash and increment nonce on each successful permit().</li>
+<li>Always include deadline in the struct hash and enforce require(block.timestamp &lt;= deadline).</li>
+<li>Use correct PERMIT_TYPEHASH with exact field order and types per EIP-2612.</li>
+<li>Use abi.encode, not abi.encodePacked.</li>
+<li>Always build digest as keccak256(“\x19\x01” || DOMAIN_SEPARATOR || structHash).</li>
+<li>Always check require(signer != address(0), “invalid sig”) after ecrecover.</li>
+<li>Always check require(owner != address(0), “invalid owner”) to prevent permit() to/from address(0).</li>
+<li>Audit any custom permit() implementation carefully.</li>
+</ul>
+<h2>References and Further Reading</h2>
+<ul>
+<li><a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712 Typed structured data hashing and signing</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-2612">EIP-2612 Permit Extension for EIP-20 Signed Approvals</a></li>
+<li><a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/ERC20Permit.sol">OpenZeppelin ERC20Permit.sol</a></li>
+</ul>
+<h2>Conclusion</h2>
+<p>Not only the variants covered in this post, but there are over 20 known variants caused by broken EIP-712 implementations.</p>
+<p>Broken EIP-712 implementations are one of the most common and dangerous bug classes in DeFi smart contracts. The financial impact of a signature replay attack can be devastating. Strict adherence to the standard and using well-audited libraries like OpenZeppelin ERC20Permit is the best way to avoid these pitfalls.</p>
+
+</main>
+<footer class='container' style='text-align: center;'>
+    <p>
+        <a href='https://github.com/0xh4ty'><i data-feather='github'></i></a>
+        &nbsp;|&nbsp;
+        <a href='https://x.com/0xh4ty'><i data-feather='twitter'></i></a>
+    </p>
+    <p class='footer-credit'>
+        © 2025 <a href='https://x.com/0xh4ty'>0xh4ty</a>. Powered by <a href='https://github.com/0xh4ty/xeniria'>Xeniria</a>.
+    </p>
+</footer>
+<script src='https://unpkg.com/feather-icons'></script>
+<script>feather.replace();</script>
+<script>
+  function toggleMenu() {
+    let nav = document.getElementById('navLinks');
+    nav.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
