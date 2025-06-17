@@ -36,4 +36,4 @@ If you’re on a similar path or just want to connect, feel free to reach out:
 
 Thanks for visiting! I hope you find something useful here. Let’s keep learning and hacking for a better world!
 
-<!-- Verified control for Wayback exclusion request submitted on June 18, 2025 by 0xh4ty -->
+<!-- Verified control for Wayback exclusion request submitted on June 18, 2025 by 0xh4ty. -->
