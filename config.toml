@@ -3,7 +3,7 @@
 title = "0xh4ty's Web3 Security Blog"  # Change this to your website's title
 description = "Documenting my journey through Web3 security and smart contract auditing."  # Short description of yourself
 author = "0xh4ty"  # Enter your name
-author_glitch_effect = true  # Enable glitch animation for the author name on the index page
+author_glitch_effect = false  # Enable glitch animation for the author name on the index page
 profile_picture = "assets/img/0xh4ty.jpg"  # Place your image in the "assets/img/" directory and update the reference here, or provide the URL of your Twitter profile picture
 base_url = "https://0xh4ty.github.io"  # The full URL where your site is hosted (used for sitemap.xml and SEO metadata). Example: "https://0xh4ty.github.io" or "https://myblog.com"
 # Optional: specify a dedicated OG image (1200x630 recommended) for better link previews on Twitter, Telegram, Discord, etc.
