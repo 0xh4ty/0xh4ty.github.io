@@ -11,7 +11,7 @@ I’m **0xh4ty**, a Linux enthusiast, Emacs user, hacker, and programmer. I crea
 
 ## My Background
 
-I started my journey in security with Web2, spending two years learning penetration testing and bug bounty hunting. I worked through ***Linux Basics for Hackers***, the **Junior Penetration Tester** path on TryHackMe, and earned the **HTB CBBH** (Certified Bug Bounty Hunter) certification on Hack The Box. Now, I’m transitioning into Web3 security and smart contract auditing.
+I started my journey in security with Web2, spending two years learning penetration testing and bug bounty hunting. I worked through ***Linux Basics for Hackers***, the **Junior Penetration Tester** path on TryHackMe, and earned the **HTB CWES** (Certified Web Exploitation Specialist) certification on Hack The Box. Now, I’m transitioning into Web3 security and smart contract auditing.
 
 ## Interests
 
