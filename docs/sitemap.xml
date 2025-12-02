@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://0xh4ty.github.io/</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/about.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/license.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/posts.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/posts/auditing-eip-712-what-to-look-for-in-off-chain-signing-flows.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/posts/don-t-trust-the-callback-a-hacker-s-guide-to-reentrancy.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/posts/my-experience-reading-mastering-ethereum.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
   </url>
   <url>
     <loc>https://0xh4ty.github.io/posts/replicating-and-fuzzing-a-sushiswap-migration-vulnerability.html</loc>
-    <lastmod>2025-09-18</lastmod>
+    <lastmod>2025-12-02</lastmod>
+  </url>
+  <url>
+    <loc>https://0xh4ty.github.io/posts/inside-the-rektoff-bootcamp-a-complete-student-review.html</loc>
+    <lastmod>2025-12-02</lastmod>
   </url>
 </urlset>
