@@ -23,7 +23,7 @@ During Module 2, we also had guest lectures from two engineers working on Solana
 
 After Module 2 ends, students receive a capstone project: an intentionally vulnerable Solana protocol to audit over two weeks. This final phase brings together all the concepts learned in the bootcamp and simulates a real audit environment.
 
-When pre-reads are provided, you are expected to go through them before the lecture so you can follow the material more effectively. After each lecture, quizzes are assigned to reinforce the concepts covered, and these must be completed before the deadlines.
+When pre-reads are provided, you are expected to go through them before the lecture so you can follow the material more effectively. Quizzes are assigned periodically to reinforce the concepts covered, and these must be completed before the deadlines.
 
 ## Instructors and Teaching Style
 
