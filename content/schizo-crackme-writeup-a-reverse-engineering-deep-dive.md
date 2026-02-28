@@ -97,6 +97,8 @@ Hell yeah! now we can confirm that our patch worked as expected. With the debugg
 
 ![Schizo Writeup Screenshot 19](../assets/img/schizo/schizo19.png)
 
+## Extracting and Analyzing the Embedded Shared Object
+
 In `main`, the first thing that grabs our attention is the use of the string `lib.so` as a parameter to `FUN_0011361c`. This must be the point where the `lib.so` file provided in the challenge is used. By going through the functions one by one, we can easily understand what is happening here.
 
 ![Schizo Writeup Screenshot 20](../assets/img/schizo/schizo20.png)
@@ -135,6 +137,8 @@ By inspecting the symbol tree itself, we can see that this code implements some 
 
 ![Schizo Writeup Screenshot 28](../assets/img/schizo/schizo28.png)
 
+## Resolving lib.so Symbols and Identifying Control Flow
+
 Now let us go back to `main` and start investigating the logic. The three `dlsym` calls resolve the symbols of three functions from the shared object library.
 
 ![Schizo Writeup Screenshot 29](../assets/img/schizo/schizo29.png)
@@ -170,6 +174,8 @@ Let us read the value returned by `FUN_00109653`.
 ![Schizo Writeup Screenshot 36](../assets/img/schizo/schizo36.png)
 
 So, `FUN_00109653` returns the response sent by the Python HTTP server, which suggests that this function is responsible for building requests and propagating responses.
+
+## The Success Checker and Validation Logic
 
 Next, let us inspect `FUN_0010a286`. With a single glance, we can see that this function contains both the success and failure paths, as it includes multiple control flow statements.
 

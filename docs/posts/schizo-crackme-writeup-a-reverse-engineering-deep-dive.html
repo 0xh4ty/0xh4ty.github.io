@@ -62,7 +62,7 @@
 </header>
 <main class='container'>
 <h1>Schizo Crackme Writeup: A Reverse Engineering Deep Dive</h1>
-                                         <p><strong>By 0xh4ty</strong> - 2026-02-26 - 10 min read</p>
+                                         <p><strong>By 0xh4ty</strong> - 2026-02-26 - 11 min read</p>
                                          <p><div class='shimmer aspect-ratio' style='--aspect-ratio:650 / 269'><img src="../assets/img/schizo/schizophrenic-cat-art.jpg" alt="Schizophrenic Cat Art"/></div></p>
 <h2>Introduction</h2>
 <p>Over the past six weeks, I focused on understanding how Linux binaries work and how to reverse them with minimal theory and tooling, primarily through hands on practice. I started by building fundamentals in x86-64 assembly, ELF internals, and basic usage of Ghidra and GDB to bootstrap my reverse engineering workflow.</p>
@@ -109,6 +109,7 @@
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:890 / 285'><img src="../assets/img/schizo/schizo18.png" alt="Schizo Writeup Screenshot 18"/></div></p>
 <p>Hell yeah! now we can confirm that our patch worked as expected. With the debugger working, let us dive into the actual challenge.</p>
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:961 / 270'><img src="../assets/img/schizo/schizo19.png" alt="Schizo Writeup Screenshot 19"/></div></p>
+<h2>Extracting and Analyzing the Embedded Shared Object</h2>
 <p>In <code>main</code>, the first thing that grabs our attention is the use of the string <code>lib.so</code> as a parameter to <code>FUN_0011361c</code>. This must be the point where the <code>lib.so</code> file provided in the challenge is used. By going through the functions one by one, we can easily understand what is happening here.</p>
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:655 / 619'><img src="../assets/img/schizo/schizo20.png" alt="Schizo Writeup Screenshot 20"/></div></p>
 <p><code>FUN_0012894f</code> decrypts the <code>lib.so</code> file.</p>
@@ -128,6 +129,7 @@
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:959 / 160'><img src="../assets/img/schizo/schizo27.png" alt="Schizo Writeup Screenshot 27"/></div></p>
 <p>By inspecting the symbol tree itself, we can see that this code implements some form of obfuscation and deobfuscation logic.</p>
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:580 / 410'><img src="../assets/img/schizo/schizo28.png" alt="Schizo Writeup Screenshot 28"/></div></p>
+<h2>Resolving lib.so Symbols and Identifying Control Flow</h2>
 <p>Now let us go back to <code>main</code> and start investigating the logic. The three <code>dlsym</code> calls resolve the symbols of three functions from the shared object library.</p>
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:667 / 328'><img src="../assets/img/schizo/schizo29.png" alt="Schizo Writeup Screenshot 29"/></div></p>
 <p>The values stored in those <code>.data</code> memory addresses are <code>___1</code>, <code>___2</code>, and <code>___3</code>. Let us rename them to make it easier to identify calls into the shared object library from the <code>schizo</code> binary.</p>
@@ -146,6 +148,7 @@
 <p>Let us read the value returned by <code>FUN_00109653</code>.</p>
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:960 / 236'><img src="../assets/img/schizo/schizo36.png" alt="Schizo Writeup Screenshot 36"/></div></p>
 <p>So, <code>FUN_00109653</code> returns the response sent by the Python HTTP server, which suggests that this function is responsible for building requests and propagating responses.</p>
+<h2>The Success Checker and Validation Logic</h2>
 <p>Next, let us inspect <code>FUN_0010a286</code>. With a single glance, we can see that this function contains both the success and failure paths, as it includes multiple control flow statements.</p>
 <p><div class='shimmer aspect-ratio' style='--aspect-ratio:786 / 549'><img src="../assets/img/schizo/schizo37.png" alt="Schizo Writeup Screenshot 37"/></div></p>
 <p>At line 73, we see an obfuscated string being printed directly, but we did not observe this when executing the binary. Hence, the success path must be this if branch and the failure path the else branch. Let us rename this function to <code>success_checker</code>.</p>
