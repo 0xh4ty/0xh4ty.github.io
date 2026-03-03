@@ -1,11 +1,11 @@
 ---
 title: License
 author: 0xh4ty
-date: 2025-02-08
+date: 2025-03-03
 description: "All content on this website, unless otherwise stated, is licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License."
 ---
 
-## Copyright © 2025 0xh4ty
+## Copyright © 2025–Present 0xh4ty
 
 All content on this website, unless otherwise stated, is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License**.
 
@@ -25,5 +25,5 @@ The licensor **cannot revoke** these freedoms as long as you follow the **licens
 - No **warranties** are given. The license may not give you all of the permissions necessary for your intended use. For example, **other rights** such as publicity, privacy, or moral rights may limit how you use the material.
 
 ## Full License:
-For more details, visit:  
+For more details, visit:
 [https://creativecommons.org/licenses/by-sa/4.0/legalcode](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
