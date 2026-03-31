@@ -3,7 +3,7 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <meta name='description' content='Security research, reverse engineering, Rust, and systems exploration.'>
+    <meta name='description' content='Systems programming, security research, and distributed systems engineering.'>
     <meta name='generator' content='Xeniria — https://github.com/0xh4ty/xeniria'>
     <title>About Me</title>
 
@@ -12,7 +12,7 @@
 
     <!-- Open Graph (OG) meta -->
     <meta property='og:title' content='About Me'>
-    <meta property='og:description' content='Security research, reverse engineering, Rust, and systems exploration.'>
+    <meta property='og:description' content='Systems programming, security research, and distributed systems engineering.'>
     <meta property='og:type' content='article'>
     <meta property='og:url' content='https://0xh4ty.github.io/about.html'>
     <meta property='og:image' content='https://0xh4ty.github.io/assets/img/og-default.png'>
@@ -20,7 +20,7 @@
     <!-- Twitter meta -->
     <meta name='twitter:card' content='summary_large_image'>
     <meta name='twitter:title' content='About Me'>
-    <meta name='twitter:description' content='Security research, reverse engineering, Rust, and systems exploration.'>
+    <meta name='twitter:description' content='Systems programming, security research, and distributed systems engineering.'>
     <meta name='twitter:image' content='https://0xh4ty.github.io/assets/img/og-default.png'>
 
     <link rel='stylesheet' href='assets/css/pico.min.css'>
@@ -64,32 +64,58 @@
 <h1>About Me</h1>
                  <p>By 0xh4ty</p>
                  <h2>Welcome</h2>
-<p>I’m <strong>0xh4ty</strong>. I work in security and spend most of my time understanding how systems break and why.</p>
-<p>This blog documents what I learn, from web application vulnerabilities to reverse engineering Linux binaries and exploring blockchain systems.</p>
-<h2>How I Got Here</h2>
-<p>I started in Web2 security and spent two years building fundamentals in penetration testing and web exploitation. During this time, I earned the HTB Certified Web Exploitation Specialist (CWES) certification and developed a strong grounding in vulnerability classes and exploitation patterns.</p>
-<p>I am currently pursuing a Master of Computer Applications (MCA) while continuing to deepen my focus on systems and security research.</p>
-<p>Over time, I became more interested in how systems work internally. That led me toward blockchain technologies, Rust, and lower-level program analysis.</p>
-<h2>What I Work On</h2>
-<p>My recent work includes:</p>
+<p>I’m <strong>0xh4ty</strong>, a systems programmer and security researcher focused on understanding how systems behave, where they fail, and how they can be broken.</p>
+<p>This blog is a record of that exploration. It covers security research, reverse engineering, blockchain systems, and the design and implementation of low-level and distributed systems. The goal is not just to use systems, but to understand them deeply enough to reason about their behavior under real constraints.</p>
+<h2>Path</h2>
+<p>I started in Web2 security and spent a couple of years building a foundation in penetration testing and web exploitation. During this time, I earned the HTB Certified Web Exploitation Specialist (CWES) certification and developed a working understanding of common vulnerability classes and exploitation patterns.</p>
+<p>Over time, I structured my learning to build intuition across layers of abstraction, moving from higher-level systems toward lower-level and more complex environments:</p>
+<p>Web application security -&gt; Web3 security (Ethereum) -&gt; Rust programming -&gt; Web3 security (Solana) -&gt; Reverse engineering -&gt; Distributed systems engineering</p>
+<p>Each transition increased both complexity and depth. The progression moved from exploiting application logic, to reasoning about on-chain state machines, to writing systems code, to analyzing compiled binaries, and finally to designing systems that must remain correct under concurrency, failure, and adversarial conditions.</p>
+<p>I am currently pursuing a Master of Computer Applications (MCA), while continuing to focus heavily on hands-on systems work outside of formal coursework.</p>
+<h2>Work</h2>
+<p>My work sits at the intersection of systems and security, with an emphasis on understanding failure modes and building intuition through direct interaction with real systems.</p>
 <ul>
 <li>Reproducing real-world smart contract vulnerabilities</li>
-<li>Writing exploit proof-of-concepts</li>
-<li>Reverse engineering C++ binaries using Ghidra and GDB</li>
-<li>Contributing to compiler-adjacent Rust tooling</li>
+<li>Writing exploit proof-of-concepts and validating attack surfaces</li>
+<li>Reverse engineering Linux binaries using Ghidra and GDB</li>
+<li>Contributing to open source compiler-adjacent tooling</li>
 <li>Building a Solidity language server for Emacs</li>
-<li>Building the Rust-based static site generator that powers this blog</li>
+<li>Developing a Rust-based static site generator that powers this blog</li>
 </ul>
-<p>I prefer understanding systems deeply rather than treating them as black boxes.</p>
+<p>I focus on depth over breadth. The goal is to understand invariants, constraints, and edge cases rather than relying on surface-level patterns.</p>
+<h2>Approach</h2>
+<p>I treat systems as artifacts that can be taken apart and studied. This involves reading code, tracing execution, inspecting memory layouts, and rebuilding simplified models to verify understanding.</p>
+<p>Whenever possible, I prefer:</p>
+<ul>
+<li>Writing small reproductions instead of relying on theory alone</li>
+<li>Validating assumptions through debugging and instrumentation</li>
+<li>Studying real implementations instead of abstract descriptions</li>
+</ul>
+<p>This approach helps build intuition that transfers across domains such as security, distributed systems, and low-level programming.</p>
 <h2>Tooling</h2>
-<p>Linux is my primary environment and Rust is my main language. Emacs is my primary editor and workflow hub.</p>
+<ul>
+<li><strong>Operating System:</strong> Linux</li>
+<li><strong>Primary Language:</strong> Rust</li>
+<li><strong>Editor and Workflow:</strong> Emacs</li>
+</ul>
+<p>My tooling choices are driven by control, visibility, and the ability to inspect system behavior closely.</p>
 <h2>Current Focus</h2>
-<p>I am currently focused on reverse engineering, vulnerability discovery, and strengthening low-level systems intuition through Rust and C++.</p>
+<p>My current focus is <strong>distributed systems engineering</strong>.</p>
+<p>This includes building and understanding systems that deal with state replication, consistency, failure handling, and coordination across nodes. I am particularly interested in how these systems behave under partial failure and adversarial conditions.</p>
+<p>Alongside this, I continue to work on:</p>
+<ul>
+<li>Reverse engineering</li>
+<li>Vulnerability discovery</li>
+<li>Strengthening low-level systems intuition</li>
+</ul>
 <h2>Contact</h2>
 <ul>
 <li>GitHub: <a href="https://github.com/0xh4ty">github.com/0xh4ty</a></li>
 <li>Twitter: <a href="https://twitter.com/0xh4ty">twitter.com/0xh4ty</a></li>
 </ul>
+<hr />
+<p>This blog exists to document my journey in systems programming and security research and to share what I learn along the way.</p>
+<p>If you are working on similar problems or following a similar path, feel free to reach out.</p>
 
 </main>
 <footer class='container' style='text-align: center;'>
