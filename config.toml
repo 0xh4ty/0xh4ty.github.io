@@ -20,3 +20,9 @@ twitter = "#Your_Twitter_Link"  # Replace with your Twitter profile link (e.g., 
 [analytics]
 plausible_domain = ""  # Optional: set your domain here to enable Plausible (example: "myblog.com")
 cloudflare_beacon_token = ""  # Optional — if set, inserts Cloudflare Analytics
+
+# Donations
+[donations]
+buy_me_a_coffee_enabled = false  # Enable or disable the Buy Me a Coffee button
+buy_me_a_coffee_username = "Xeniria"  # Your Buy Me a Coffee username (example: "Xeniria" -> https://buymeacoffee.com/Xeniria)
+buy_me_a_coffee_message = "If you enjoy my work, consider buying me a coffee ☕"  # Custom message shown below the button

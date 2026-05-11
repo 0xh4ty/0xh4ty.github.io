@@ -20,6 +20,7 @@ struct SiteConfig {
     site: SiteInfo,
     links: Links,
     analytics: Analytics,
+    donations: Donations,
 }
 
 /// Holds site metadata like title, description, etc.
@@ -45,6 +46,13 @@ struct Links {
 struct Analytics {
     plausible_domain: String,
     cloudflare_beacon_token: String,
+}
+
+#[derive(Deserialize)]
+struct Donations {
+    buy_me_a_coffee_enabled: bool,
+    buy_me_a_coffee_username: String,
+    buy_me_a_coffee_message: String,
 }
 
 #[derive(Parser)]
@@ -96,15 +104,18 @@ fn main() {
                                 Ok(post) => {
                                     // Build the final HTML for this post using wrap_in_template
                                     // We'll pass in the post's title and a custom body content.
+                                    let donation_section = generate_donation_section(&config);
                                     let post_body = format!(
                                         "<h1>{title}</h1>
                                          <p><strong>By {author}</strong> - {date} - {read_time} min read</p>
-                                         {content}",
+                                         {content}
+                                         {donation_section}",
                                         title = post.front_matter.title,
                                         author = post.front_matter.author,
                                         date = post.front_matter.date,
                                         read_time = post.reading_time,
                                         content = post.content,
+                                        donation_section = donation_section,
                                     );
 
                                     let post_url = post
@@ -166,6 +177,38 @@ fn main() {
 fn load_config() -> SiteConfig {
     let config_contents = read_to_string("config.toml").expect("Failed to read config.toml");
     toml::from_str(&config_contents).expect("Failed to parse config.toml")
+}
+
+fn generate_donation_section(config: &SiteConfig) -> String {
+    if !config.donations.buy_me_a_coffee_enabled {
+        return String::new();
+    }
+
+    format!(
+        "<div class='support-section'>
+  <div class='coffee-btn-wrapper'>
+    <script
+      type='text/javascript'
+      src='https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js'
+      data-name='bmc-button'
+      data-slug='{username}'
+      data-color='#222433'
+      data-emoji=''
+      data-font='Cookie'
+      data-text='Buy me a coffee'
+      data-outline-color='#ffffff'
+      data-font-color='#ffffff'
+      data-coffee-color='#FFDD00'>
+    </script>
+  </div>
+
+  <p class='support-text'>
+    {message}
+  </p>
+</div>",
+        username = config.donations.buy_me_a_coffee_username,
+        message = config.donations.buy_me_a_coffee_message
+    )
 }
 
 /// Helper function to generate the full HTML layout
