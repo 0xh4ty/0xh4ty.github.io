@@ -62,8 +62,8 @@
 </header>
 <main class='container'>
 <h1>Don’t Trust the Callback: A Hacker’s Guide to Reentrancy</h1>
-                                         <p><strong>By 0xh4ty</strong> - 2025-05-25 - 3 min read</p>
-                                         <h2>Introduction</h2>
+                     <p><strong>By 0xh4ty</strong> - 2025-05-25 - 3 min read</p>
+                     <h2>Introduction</h2>
 <p>Reentrancy is not just an attack vector in smart contracts. It is a behavioral flaw that mirrors recursive logic but emerges from control being transferred to an external contract mid-execution. Unlike traditional software where locks, thread-local storage, and shared state protections exist, smart contracts must defend themselves explicitly.</p>
 <p>This post will break down the concept of reentrancy, dissect real attack patterns, and show how to exploit and prevent them. It will cover three types of reentrancy attacks: <strong>Single Function</strong>, <strong>Cross-Function</strong>, and <strong>Cross-Contract</strong>.</p>
 <h2>What Is Reentrancy?</h2>
@@ -137,6 +137,46 @@ modifier noReentrant() {
 <p>This blog is my distilled learning from multiple sources, broken down and remixed into something any smart contract auditor can internalize and act on.</p>
 <p>Stay paranoid. Stay precise.</p>
 
+                     <div class='support-section'>
+  <div class='coffee-btn-wrapper'>
+    <script
+      type='text/javascript'
+      src='https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js'
+      data-name='bmc-button'
+      data-slug='0xh4ty'
+      data-color='#222433'
+      data-emoji=''
+      data-font='Cookie'
+      data-text='Buy me a coffee'
+      data-outline-color='#ffffff'
+      data-font-color='#ffffff'
+      data-coffee-color='#FFDD00'>
+    </script>
+  </div>
+
+  <p class='support-text'>
+    If you enjoy my work, consider buying me a coffee ☕
+  </p>
+</div>
+                     <div class='post-navigation'>
+            <a href='auditing-eip-712-what-to-look-for-in-off-chain-signing-flows.html' class='nav-button nav-prev'>
+                ← Previous
+            </a>
+
+            <a href='../index.html' class='nav-button nav-home'>
+                Home
+            </a>
+
+            <a href='my-experience-reading-mastering-ethereum.html' class='nav-button nav-next'>
+                Next →
+            </a>
+        </div>
+
+        <div class='browse-posts'>
+            <a href='../posts.html'>
+                Browse all posts →
+            </a>
+        </div>
 </main>
 <footer class='container' style='text-align: center;'>
     <p>

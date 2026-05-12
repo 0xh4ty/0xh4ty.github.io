@@ -62,8 +62,8 @@
 </header>
 <main class='container'>
 <h1>Auditing EIP-712: What to Look For in Off-Chain Signing Flows</h1>
-                                         <p><strong>By 0xh4ty</strong> - 2025-06-08 - 4 min read</p>
-                                         <h2>Introduction</h2>
+                     <p><strong>By 0xh4ty</strong> - 2025-06-08 - 4 min read</p>
+                     <h2>Introduction</h2>
 <p>EIP-712 is a standard designed to make off-chain signing of structured data both secure and user-friendly. It is used extensively in the Ethereum ecosystem, especially in DeFi protocols where actions such as token approvals are signed off-chain to save gas. A prominent example of this is the ERC20 <code>permit()</code> function introduced by EIP-2612, which allows token holders to approve transfers without sending an on-chain transaction.</p>
 <p>However, incorrect implementations of EIP-712 are a rich source of vulnerabilities. Improper handling of signed data can lead to serious bugs, including signature replay attacks and signature forgery. This post explores this bug class in depth.</p>
 <h2>The Basics of EIP-712</h2>
@@ -175,6 +175,46 @@ require(signer == owner, "invalid sig");
 <p>Not only the variants covered in this post, but there are over 20 known variants caused by broken EIP-712 implementations.</p>
 <p>Broken EIP-712 implementations are one of the most common and dangerous bug classes in DeFi smart contracts. The financial impact of a signature replay attack can be devastating. Strict adherence to the standard and using well-audited libraries like OpenZeppelin ERC20Permit is the best way to avoid these pitfalls.</p>
 
+                     <div class='support-section'>
+  <div class='coffee-btn-wrapper'>
+    <script
+      type='text/javascript'
+      src='https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js'
+      data-name='bmc-button'
+      data-slug='0xh4ty'
+      data-color='#222433'
+      data-emoji=''
+      data-font='Cookie'
+      data-text='Buy me a coffee'
+      data-outline-color='#ffffff'
+      data-font-color='#ffffff'
+      data-coffee-color='#FFDD00'>
+    </script>
+  </div>
+
+  <p class='support-text'>
+    If you enjoy my work, consider buying me a coffee ☕
+  </p>
+</div>
+                     <div class='post-navigation'>
+            <a href='replicating-and-fuzzing-a-sushiswap-migration-vulnerability.html' class='nav-button nav-prev'>
+                ← Previous
+            </a>
+
+            <a href='../index.html' class='nav-button nav-home'>
+                Home
+            </a>
+
+            <a href='don-t-trust-the-callback-a-hacker-s-guide-to-reentrancy.html' class='nav-button nav-next'>
+                Next →
+            </a>
+        </div>
+
+        <div class='browse-posts'>
+            <a href='../posts.html'>
+                Browse all posts →
+            </a>
+        </div>
 </main>
 <footer class='container' style='text-align: center;'>
     <p>
