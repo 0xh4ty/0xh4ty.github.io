@@ -2,22 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yourdomain.com/</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>2026-05-12</lastmod>
   </url>
   <url>
     <loc>https://yourdomain.com/about.html</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>2026-05-12</lastmod>
   </url>
   <url>
     <loc>https://yourdomain.com/license.html</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>2026-05-12</lastmod>
   </url>
   <url>
     <loc>https://yourdomain.com/posts.html</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/the-art-of-writing-3.html</loc>
+    <lastmod>2026-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/the-art-of-writing-2.html</loc>
+    <lastmod>2026-05-12</lastmod>
   </url>
   <url>
     <loc>https://yourdomain.com/posts/the-art-of-writing.html</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>2026-05-12</lastmod>
   </url>
 </urlset>
