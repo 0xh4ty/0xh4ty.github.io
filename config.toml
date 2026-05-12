@@ -26,4 +26,4 @@ cloudflare_beacon_token = "9c1e0c4b473f4376a08b470a425d8160"  # Optional — if 
 [donations]
 buy_me_a_coffee_enabled = true  # Enable or disable the Buy Me a Coffee button
 buy_me_a_coffee_username = "0xh4ty"  # Your Buy Me a Coffee username (example: "Xeniria" -> https://buymeacoffee.com/Xeniria)
-buy_me_a_coffee_message = "If you enjoy my work, consider buying me a coffee ☕"  # Custom message shown below the button
+buy_me_a_coffee_message = "If you enjoy my work or find my research useful, consider buying me a coffee ☕ Your support helps me continue writing, researching, and building."  # Custom message shown below the button
